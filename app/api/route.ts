@@ -1,8 +1,10 @@
 import axios from "axios";
+import { generateSVGBoxed, generateSVG } from "../svg/default";
 
 async function fetchLeetCodeStats(username: string) {
   const query = `
     {
+      allQuestionsCount { difficulty count }
       matchedUser(username: "${username}") {
         username
         submitStats: submitStatsGlobal {
@@ -20,20 +22,20 @@ async function fetchLeetCodeStats(username: string) {
     const response = await axios.post("https://leetcode.com/graphql", {
       query,
     });
-    return response.data.data.matchedUser;
+    return response.data.data;
   } catch (error) {
     console.error("Failed to fetch LeetCode stats:", error);
     return null;
   }
 }
 
-async function generateLeetCodeStatsCard(username: string) {
+async function generateLeetCodeStatsCard(username: string, name: string) {
   const stats = await fetchLeetCodeStats(username);
   if (!stats) {
     return "Failed to fetch LeetCode stats";
   }
-
-  const { acSubmissionNum } = stats.submitStats;
+  const { acSubmissionNum } = stats.matchedUser.submitStats;
+  const { allQuestionsCount } = stats;
   const easyCount =
     acSubmissionNum.find((item: any) => item.difficulty === "Easy")?.count || 0;
   const mediumCount =
@@ -41,20 +43,23 @@ async function generateLeetCodeStatsCard(username: string) {
     0;
   const hardCount =
     acSubmissionNum.find((item: any) => item.difficulty === "Hard")?.count || 0;
+  const allCount = easyCount + mediumCount + hardCount;
+  const easyTotal = allQuestionsCount[1].count;
+  const mediumTotal = allQuestionsCount[2].count;
+  const hardTotal = allQuestionsCount[3].count;
+  const allTotal = easyTotal + mediumTotal + hardTotal;
 
-  return `
-    <svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
-      <style>
-        .header { font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif; fill: #2f80ed; }
-        .stat { font: 400 14px 'Segoe UI', Ubuntu, Sans-Serif; fill: #333; }
-      </style>
-      <rect x="0" y="0" width="400" height="200" fill="#fff" stroke="#e4e2e2" stroke-width="1" />
-      <text x="25" y="35" class="header">LeetCode Stats for ${username}</text>
-      <text x="35" y="70" class="stat">Easy: ${easyCount} problems</text>
-      <text x="35" y="95" class="stat">Medium: ${mediumCount} problems</text>
-      <text x="35" y="120" class="stat">Hard: ${hardCount} problems</text>
-    </svg>
-  `;
+  return generateSVGBoxed(
+    name,
+    easyCount,
+    mediumCount,
+    hardCount,
+    allCount,
+    easyTotal,
+    mediumTotal,
+    hardTotal,
+    allTotal
+  );
 }
 
 export async function GET(request: Request) {
@@ -63,8 +68,12 @@ export async function GET(request: Request) {
   if (username == null) {
     return new Response("Please provide a username", { status: 400 });
   }
+  let name = searchParams.get("name");
+  if (name == null) {
+    name = username;
+  }
   try {
-    const svgContent = await generateLeetCodeStatsCard(username);
+    const svgContent = await generateLeetCodeStatsCard(username, name);
     return new Response(svgContent, {
       headers: { "Content-Type": "image/svg+xml" },
     });
