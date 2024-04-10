@@ -1,36 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# LeetCode Stats Box
 
-## Getting Started
+Hello! Check out sample LeetCode stats box here.
 
-First, run the development server:
+![Sample LeetCode Stats](https://leetcode-solved-problems.vercel.app/api?username=o0o2211915&name=yejin🐤)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+This image is generated using the [LeetCode Stats Generator](https://leetcode-solved-problems.vercel.app/). You can easily add your LeetCode statistics to your markdown files using this tool. It's simple to use:
+
+1. Replace the `username` parameter in the URL with your own LeetCode username.
+2. Replace the `name` parameter in the URL with the name you'd like displayed on the image.
+
+```
+![alt text](https://leetcode-solved-problems.vercel.app/api?username={leetcode_id}&name={your_awesome_name})
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+And that's it! You'll get an image like the one above. Add this image to your README.md file or any other markdown document to showcase your coding accomplishments.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Don't miss out on showcasing your awesome and fantastic coding journey! Create and add your own LeetCode stats image, just like this sample, and share your achievements with the world. Be awesome and keep coding!
