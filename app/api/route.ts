@@ -1,5 +1,5 @@
 import axios from "axios";
-import { generateSVGBoxed, generateSVG } from "../svg/default";
+import { generateSVGBoxed } from "../svg/default";
 
 async function fetchLeetCodeStats(username: string) {
   const query = `
