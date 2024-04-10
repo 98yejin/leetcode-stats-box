@@ -1,0 +1,9 @@
+{
+  "routes": [
+    {
+      "dest": "/api.js",
+      "src": "/api"
+    }
+  ],
+  "version": 2
+}
