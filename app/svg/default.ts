@@ -34,7 +34,8 @@ export function generateSVGBoxed(
   easyTotal: number,
   mediumTotal: number,
   hardTotal: number,
-  allTotal: number
+  allTotal: number,
+  bolder: string
 ): string {
   // Define the basic dimensions
   const newName = capitalizeFirstLetter(name);
@@ -43,7 +44,7 @@ export function generateSVGBoxed(
   const boxPadding = 10;
   const boxWidth = width - 2 * boxPadding;
   const boxHeight = height - 2 * boxPadding;
-  // Combine everything into the SVG
+  let bolderColor = bolder == "false" ? "white" : "#ccc";
   const svgContent = `
       <svg viewBox="0 0 ${width} ${height}" width="${width * 2.5}" height="${
     height * 2.5
@@ -51,7 +52,7 @@ export function generateSVGBoxed(
         <style>
         .header { font: 600 6px 'Segoe UI', Ubuntu, Sans-Serif; fill: #2f80ed; }
         </style>
-        <rect x="${boxPadding}" y="${boxPadding}" width="${boxWidth}" height="${boxHeight}" fill="white" stroke="#ccc" stroke-width="0.1" rx="1" ry="1"/>
+        <rect x="${boxPadding}" y="${boxPadding}" width="${boxWidth}" height="${boxHeight}" fill="white" stroke="${bolderColor}" stroke-width="0.1" rx="1" ry="1"/>
         <text x="15" y="23" class="header">LeetCode Stats for ${newName}</text>
         ${createBar(35, easyCount, easyTotal, "Easy", "#4caf50")}
         ${createBar(50, mediumCount, mediumTotal, "Medium", "#ffeb3b")}

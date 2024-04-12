@@ -18,7 +18,8 @@ export async function GET(request: Request) {
     if (type === "calendar") {
       svgContent = await generateLeetcodeCalendarCard(username, name);
     } else {
-      svgContent = await generateLeetCodeStatsCard(username, name);
+      const bolder = searchParams.get("bolder") ?? "true";
+      svgContent = await generateLeetCodeStatsCard(username, name, bolder);
     }
     return new Response(svgContent, {
       headers: { "Content-Type": "image/svg+xml" },

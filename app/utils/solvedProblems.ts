@@ -22,7 +22,8 @@ async function fetchLeetCodeStats(username: string) {
 
 export async function generateLeetCodeStatsCard(
   username: string,
-  name: string
+  name: string,
+  bolder: string
 ) {
   const stats = await fetchLeetCodeStats(username);
   if (!stats) {
@@ -42,7 +43,6 @@ export async function generateLeetCodeStatsCard(
   const mediumTotal = allQuestionsCount[2].count;
   const hardTotal = allQuestionsCount[3].count;
   const allTotal = easyTotal + mediumTotal + hardTotal;
-
   return generateSVGBoxed(
     name,
     easyCount,
@@ -52,6 +52,7 @@ export async function generateLeetCodeStatsCard(
     easyTotal,
     mediumTotal,
     hardTotal,
-    allTotal
+    allTotal,
+    bolder
   );
 }
