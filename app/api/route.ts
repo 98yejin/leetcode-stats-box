@@ -1,3 +1,4 @@
+import { generateLeetcodeCalendarCard } from "../utils/calendar";
 import { generateLeetCodeStatsCard } from "../utils/solvedProblems";
 
 export async function GET(request: Request) {
@@ -10,8 +11,15 @@ export async function GET(request: Request) {
   if (name == null) {
     name = username;
   }
+  const type = searchParams.get("type");
+
   try {
-    const svgContent = await generateLeetCodeStatsCard(username, name);
+    let svgContent;
+    if (type === "calendar") {
+      svgContent = await generateLeetcodeCalendarCard(username, name);
+    } else {
+      svgContent = await generateLeetCodeStatsCard(username, name);
+    }
     return new Response(svgContent, {
       headers: { "Content-Type": "image/svg+xml" },
     });

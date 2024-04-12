@@ -1,5 +1,5 @@
-import axios from "axios";
 import { generateSVGBoxed } from "../svg/default";
+import { fetchLeetCode } from "./fetchLeetcode";
 
 async function fetchLeetCodeStats(username: string) {
   const query = `
@@ -16,17 +16,8 @@ async function fetchLeetCodeStats(username: string) {
           }
         }
       }
-    `;
-
-  try {
-    const response = await axios.post("https://leetcode.com/graphql", {
-      query,
-    });
-    return response.data.data;
-  } catch (error) {
-    console.error("Failed to fetch LeetCode stats:", error);
-    return null;
-  }
+  `;
+  return fetchLeetCode(query);
 }
 
 export async function generateLeetCodeStatsCard(

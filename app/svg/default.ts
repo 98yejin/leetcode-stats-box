@@ -1,3 +1,5 @@
+import { capitalizeFirstLetter } from "../utils/module";
+
 const createBar = (
   y: number,
   count: number,
@@ -22,11 +24,6 @@ const createBar = (
   )}%)</text>
     `;
 };
-
-function capitalizeFirstLetter(s: string): string {
-  if (s.length === 0) return s; // or return "" for an empty string
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
 
 export function generateSVGBoxed(
   name: string,
