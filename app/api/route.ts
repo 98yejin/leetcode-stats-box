@@ -7,12 +7,8 @@ export async function GET(request: Request) {
   if (username == null) {
     return new Response("Please provide a username", { status: 400 });
   }
-  let name = searchParams.get("name");
-  if (name == null) {
-    name = username;
-  }
+  let name = searchParams.get("name") ?? username;
   const type = searchParams.get("type");
-
   try {
     let svgContent;
     if (type === "calendar") {

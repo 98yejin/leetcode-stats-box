@@ -1,5 +1,5 @@
+import axios from "axios";
 import { generateSVGBoxed } from "../svg/stats";
-import { fetchLeetCode } from "./fetchLeetcode";
 
 async function fetchLeetCodeStats(username: string) {
   const query = `
@@ -16,14 +16,22 @@ async function fetchLeetCodeStats(username: string) {
           }
         }
       }
-  `;
-  return fetchLeetCode(query);
+    `;
+
+  try {
+    const response = await axios.post("https://leetcode.com/graphql", {
+      query,
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error("Failed to fetch LeetCode stats:", error);
+    return null;
+  }
 }
 
 export async function generateLeetCodeStatsCard(
   username: string,
-  name: string,
-  bolder: string
+  name: string
 ) {
   const stats = await fetchLeetCodeStats(username);
   if (!stats) {
@@ -43,6 +51,7 @@ export async function generateLeetCodeStatsCard(
   const mediumTotal = allQuestionsCount[2].count;
   const hardTotal = allQuestionsCount[3].count;
   const allTotal = easyTotal + mediumTotal + hardTotal;
+
   return generateSVGBoxed(
     name,
     easyCount,
@@ -52,7 +61,6 @@ export async function generateLeetCodeStatsCard(
     easyTotal,
     mediumTotal,
     hardTotal,
-    allTotal,
-    bolder
+    allTotal
   );
 }
