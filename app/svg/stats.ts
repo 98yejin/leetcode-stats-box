@@ -1,3 +1,5 @@
+import { capitalizeFirstLetter } from "../utils/module";
+
 const createBar = (
   y: number,
   count: number,
@@ -23,11 +25,6 @@ const createBar = (
     `;
 };
 
-function capitalizeFirstLetter(s: string): string {
-  if (s.length === 0) return s; // or return "" for an empty string
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
 export function generateSVGBoxed(
   name: string,
   easyCount: number,
@@ -37,7 +34,9 @@ export function generateSVGBoxed(
   easyTotal: number,
   mediumTotal: number,
   hardTotal: number,
-  allTotal: number
+  allTotal: number,
+  bolder: string,
+  title: string
 ): string {
   // Define the basic dimensions
   const newName = capitalizeFirstLetter(name);
@@ -46,15 +45,16 @@ export function generateSVGBoxed(
   const boxPadding = 10;
   const boxWidth = width - 2 * boxPadding;
   const boxHeight = height - 2 * boxPadding;
-  // Combine everything into the SVG
+  const bolderColor = bolder == "false" ? "white" : "#ccc";
+  const titleColor = title == "false" ? "white" : "#2f80ed";
   const svgContent = `
       <svg viewBox="0 0 ${width} ${height}" width="${width * 2.5}" height="${
     height * 2.5
   }" xmlns="http://www.w3.org/2000/svg">
         <style>
-        .header { font: 600 6px 'Segoe UI', Ubuntu, Sans-Serif; fill: #2f80ed; }
+        .header { font: 600 6px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${titleColor}; }
         </style>
-        <rect x="${boxPadding}" y="${boxPadding}" width="${boxWidth}" height="${boxHeight}" fill="white" stroke="#ccc" stroke-width="0.1" rx="1" ry="1"/>
+        <rect x="${boxPadding}" y="${boxPadding}" width="${boxWidth}" height="${boxHeight}" fill="white" stroke="${bolderColor}" stroke-width="0.1" rx="1" ry="1"/>
         <text x="15" y="23" class="header">LeetCode Stats for ${newName}</text>
         ${createBar(35, easyCount, easyTotal, "Easy", "#4caf50")}
         ${createBar(50, mediumCount, mediumTotal, "Medium", "#ffeb3b")}
