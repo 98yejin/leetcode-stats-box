@@ -23,7 +23,8 @@ async function fetchLeetCodeStats(username: string) {
 export async function generateLeetCodeStatsCard(
   username: string,
   name: string,
-  bolder: string
+  bolder: string,
+  title: string
 ) {
   const stats = await fetchLeetCodeStats(username);
   if (!stats) {
@@ -53,6 +54,7 @@ export async function generateLeetCodeStatsCard(
     mediumTotal,
     hardTotal,
     allTotal,
-    bolder
+    bolder,
+    title
   );
 }

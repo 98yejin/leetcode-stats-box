@@ -7,15 +7,21 @@ export async function GET(request: Request) {
   if (username == null) {
     return new Response("Please provide a username", { status: 400 });
   }
-  let name = searchParams.get("name") ?? username;
+  const name = searchParams.get("name") ?? username;
+  const title = searchParams.get("title") ?? "true";
   const type = searchParams.get("type");
   try {
     let svgContent;
     if (type === "calendar") {
-      svgContent = await generateLeetcodeCalendarCard(username, name);
+      svgContent = await generateLeetcodeCalendarCard(username, name, title);
     } else {
       const bolder = searchParams.get("bolder") ?? "true";
-      svgContent = await generateLeetCodeStatsCard(username, name, bolder);
+      svgContent = await generateLeetCodeStatsCard(
+        username,
+        name,
+        bolder,
+        title
+      );
     }
     return new Response(svgContent, {
       headers: { "Content-Type": "image/svg+xml" },

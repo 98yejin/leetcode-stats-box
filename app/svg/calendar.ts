@@ -21,7 +21,8 @@ export async function drawLeetCodeCalendar(
   totalActiveDays: number,
   data: {
     [key: string]: { [key: string]: number };
-  }
+  },
+  title: string
 ) {
   const svgWidth = 450;
   const svgHeight = 200;
@@ -32,10 +33,11 @@ export async function drawLeetCodeCalendar(
   const radius = 2.5;
   const percentage = (totalActiveDays / 180) * 100;
   const newName = capitalizeFirstLetter(name);
+  const titleColor = title == "false" ? "white" : "#2f80ed";
   let svg = `<svg width="${svgWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">`;
   svg += `
       <style>
-      .header { font: 600 14px 'Segoe UI', Ubuntu, Sans-Serif; fill: #2f80ed; }
+      .header { font: 600 14px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${titleColor}; }
       </style>
       <text x="15" y="23" class="header">LeetCode Submission Calendar for ${newName}</text>`;
   let weekX = 20;

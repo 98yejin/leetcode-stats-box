@@ -74,12 +74,13 @@ async function parseLeetCodeCalendar(submissionCalendar: string) {
 
 export async function generateLeetcodeCalendarCard(
   username: string,
-  name: string
+  name: string,
+  title: string
 ) {
   const stats = await fetchLeetCodeCalednar(username);
   const { submissionCalendar } = stats.matchedUser;
   const { totalActiveDays, dataByMonth } = await parseLeetCodeCalendar(
     submissionCalendar
   );
-  return await drawLeetCodeCalendar(name, totalActiveDays, dataByMonth);
+  return await drawLeetCodeCalendar(name, totalActiveDays, dataByMonth, title);
 }
